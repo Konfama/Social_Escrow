@@ -1,8 +1,10 @@
-from fastapi import FastAPI
-from app.database import init_db
+from fastapi import FastAPI, Depends
+from sqlalchemy.orm import Session
+from app.database import get_db
+from app.models.schema import User  # Make sure this matches your actual model import
 
 app = FastAPI()
 
-@app.on_event("startup")
-def startup_event():
-    init_db()
+@app.get("/users/")
+def read_users(db: Session = Depends(get_db)):
+    return db.query(User).all()
