@@ -5,6 +5,6 @@ from app.models.schema import User  # Make sure this matches your actual model i
 
 app = FastAPI()
 
-@app.get("/users/")
-def read_users(db: Session = Depends(get_db)):
-    return db.query(User).all()
+@app.get("/")
+def read_root():
+    return {"message": "Welcome to Social Escrow API!"}
